@@ -3,14 +3,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-char	*stringy(int fd)
+char	*ft_fetch(int fd)
 {
 	char	*string;
+	int		rdout;
 
 	string = malloc ((4 + 1) * sizeof(char));
 	if (!string)
 		return ((char *) 0);
-	read(fd, string, 4);
+	rdout = read(fd, string, 4);
+	if (rdout == -1)
+	{
+		free(string);
+		return ((char *) 0);
+	}
 	return (string);
 }
 
