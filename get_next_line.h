@@ -18,5 +18,17 @@
 
 //Function that outputs lines from a given file descriptor.
 char	*get_next_line(int fd);
+//Function determines length of the string (number of characters).
+size_t	ft_strlen(const char *str);
+//Function joins two character strings, creates a new char string.
+char	*ft_strjoin(char const *s1, char const *s2);
+//Function reads from a file descriptor, creating a string for its output.
+char	*ft_fetch(int fd, int buffsize);
+//Function joins the initial string with reads from a descriptor until newline.
+char	*joining(int fd, char *initial);
+//Function trims the input string such that contents after newline are cut.
+char	*output(char *candidate);
+//Function takes input string and returns contents after the first newline.
+char	*remaining(char *candidate);
 
 #endif
