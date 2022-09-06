@@ -42,6 +42,74 @@ int	main(void)
 }
 //*/
 
+//Function searches for char and returns first location. 0 not found. 1 is 1st.
+int	ft_strsrch(const char *str, char ch)
+{
+	unsigned int	i;
+	int				loc;
+
+	loc = 0;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == ch)
+			return(i + 1);
+		i++;
+	}
+	return(loc);
+}
+
+/*Test strsrch
+//gcc -Wall -Werror -Wextra get_next_line_utils.c && ./a.out
+#include <stdio.h>
+
+int	main(void)
+{
+	char	*str="Hello";
+	char	ch='3';
+
+	printf("Str: %s, Ch: %c, Out: %d\n", str, ch, ft_strsrch(str, ch));
+	return (0);
+}
+//*/
+
+//Function reads from a file descriptor, creating a string for its output.
+char	*ft_fetch(int fd, int buffsize)
+{
+	char	*string;
+	int		rdout;
+
+	string = malloc ((buffsize + 1) * sizeof(char));
+	if (!string)
+		return ((char *) 0);
+	rdout = read(fd, string, buffsize);
+	if (rdout == -1 || string[0] == '\0')
+	{
+		free(string);
+		return ((char *) 0);
+	}
+	return (string);
+}
+
+/* Test | gcc -Wall -Werror -Wextra get_next_line_utils.c && ./a.out
+#include <fcntl.h>
+#include <stdio.h>
+
+int	main(void)
+{
+	char	*fetched;
+	int		fd;
+	int		buffsize;
+
+	fd = open("sample.txt", O_RDONLY, 0);
+	buffsize = 6;
+	fetched = ft_fetch(fd, buffsize);
+	printf("Read: %s", fetched);
+	free(fetched);
+	return (0);
+}
+//*/
+
 //Function joins two character strings, creates a new char string.
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -80,43 +148,6 @@ int	main(void)
 	join = ft_strjoin(s1, s2);
 	printf("Test: s1-%s, s2-%s, Out-%s", s1, s2, join);
 	free(join);
-	return (0);
-}
-//*/
-
-//Function reads from a file descriptor, creating a string for its output.
-char	*ft_fetch(int fd, int buffsize)
-{
-	char	*string;
-	int		rdout;
-
-	string = malloc ((buffsize + 1) * sizeof(char));
-	if (!string)
-		return ((char *) 0);
-	rdout = read(fd, string, buffsize);
-	if (rdout == -1 || string[0] == '\0')
-	{
-		free(string);
-		return ((char *) 0);
-	}
-	return (string);
-}
-
-/* Test | gcc -Wall -Werror -Wextra get_next_line_utils.c && ./a.out
-#include <fcntl.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*fetched;
-	int		fd;
-	int		buffsize;
-
-	fd = open("sample.txt", O_RDONLY, 0);
-	buffsize = 6;
-	fetched = ft_fetch(fd, buffsize);
-	printf("Read: %s", fetched);
-	free(fetched);
 	return (0);
 }
 //*/
