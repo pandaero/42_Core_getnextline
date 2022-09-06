@@ -102,7 +102,7 @@ char	*ft_fetch(int fd, int buffsize)
 	return (string);
 }
 
-//* Test | gcc -Wall -Werror -Wextra get_next_line_utils.c && ./a.out
+/* Test | gcc -Wall -Werror -Wextra get_next_line_utils.c && ./a.out
 #include <fcntl.h>
 #include <stdio.h>
 
