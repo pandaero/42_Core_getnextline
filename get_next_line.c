@@ -21,13 +21,13 @@ char	*joining(int fd, char *initial)
 }
 
 //Function trims the input string such that contents after newline are cut.
-char	*output()
+char	*output(char *candidate)
 {
 
 }
 
 //Function takes input string and returns contents after the first newline.
-char	*remaining()
+char	*remaining(char *candidate)
 {
 
 }
