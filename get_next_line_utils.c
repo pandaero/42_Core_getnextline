@@ -146,7 +146,7 @@ int	main(void)
 	char	*join;
 
 	join = ft_strjoin(s1, s2);
-	printf("Test: s1-%s, s2-%s, Out-%s", s1, s2, join);
+	printf("Test: s1-%s, s2-%s, Out-%s\n", s1, s2, join);
 	free(join);
 	return (0);
 }
