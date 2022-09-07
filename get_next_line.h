@@ -20,6 +20,8 @@
 char	*get_next_line(int fd);
 //Function determines length of the string (number of characters).
 size_t	ft_strlen(const char *str);
+//Function searches for char and returns first location. 0 not found. 1 is 1st.
+int		ft_strsrch(const char *str, char ch);
 //Function joins two character strings, creates a new char string.
 char	*ft_strjoin(char const *s1, char const *s2);
 //Function reads from a file descriptor, creating a string for its output.

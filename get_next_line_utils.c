@@ -53,10 +53,10 @@ int	ft_strsrch(const char *str, char ch)
 	while (str[i] != '\0')
 	{
 		if (str[i] == ch)
-			return(i + 1);
+			return (i + 1);
 		i++;
 	}
-	return(loc);
+	return (loc);
 }
 
 /*Test strsrch
