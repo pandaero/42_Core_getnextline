@@ -104,21 +104,52 @@ int	main()
 //Function takes input string and returns contents after the first newline.
 char	*remaining(char *candidate)
 {
-	return ("");
+	int		ii[3];
+	char	*out;
+
+	ii[0] = 0;
+	while (candidate[ii[0]] != '\n')
+		ii[0]++;
+	ii[1] = 0;
+	while (candidate[ii[1]] != '\0')
+		ii[1]++;
+	if (ii[0] == ii[1])
+	{
+		out = malloc(1 * sizeof(char));
+		out[0] = '\0';
+	}
+	else
+	{
+		out = malloc((ii[1] - ii[0]) * sizeof(char));
+		ii[2] = 0;
+		while (ii[2] <= ii[1] - ii[0])
+		{
+			out[ii[2]] = candidate[ii[0] + 1 + ii[2]];
+			ii[2]++;
+		}
+	}
+	return (out);
 }
 
-/*
+/*Test
 //gcc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c && ./a.out
-#include <fcntl.h>
 #include <stdio.h>
 
 int	main()
 {
+	char	test1[] = "xxx\nxxxxx";
+	char	test2[] = "xxxxxxxxx";
+	char	*ptr;
 
+	ptr = remaining(test1);
+	printf("Newline Test: %s\n", ptr);
+	ptr = remaining(test2);
+	printf("Nothing Test: %s\n", ptr);
+	free(ptr);
 	return (0);
 }
 //*/
-/*
+
 char	*get_next_line(int fd)
 {
 	static char	*ptr = "";
@@ -133,9 +164,11 @@ char	*get_next_line(int fd)
 	ptr = remaining(ptr);
 	return (out);
 }
-*/
+
 /*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
+#include <fcntl.h>
+#include <stdio.h>
 
 int main(void)
 {
