@@ -88,6 +88,7 @@ char	*ft_fetch(int fd, int buffsize)
 		free(string);
 		return ((char *) 0);
 	}
+	string[buffsize + 1] = '\0';
 	return (string);
 }
 
@@ -104,7 +105,7 @@ int	main(void)
 	fd = open("sample.txt", O_RDONLY, 0);
 	buffsize = 6;
 	fetched = ft_fetch(fd, buffsize);
-	printf("Read: %s", fetched);
+	printf("Read: %s\n", fetched);
 	free(fetched);
 	return (0);
 }
