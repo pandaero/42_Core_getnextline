@@ -26,6 +26,7 @@ char	*joining(int fd, char *initial)
 	out = ft_strjoin(initial, read);
 	while (ft_strsrch(read, '\n') == 0 && read[0] != '\0')
 	{
+		free(read);
 		read = ft_fetch(fd, BUFFER_SIZE);
 		out = ft_strjoin(out, read);
 	}
@@ -143,6 +144,7 @@ int	main()
 
 	ptr = remaining(test1);
 	printf("Newline Test: %s\n", ptr);
+	free(ptr);
 	ptr = remaining(test2);
 	printf("Nothing Test: %s\n", ptr);
 	free(ptr);
@@ -165,7 +167,7 @@ char	*get_next_line(int fd)
 	return (out);
 }
 
-/*Test
+//*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 #include <fcntl.h>
 #include <stdio.h>
