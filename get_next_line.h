@@ -13,7 +13,7 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 2
 # endif
 # include <stddef.h>
 
@@ -23,10 +23,10 @@ char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
 //Function searches for char and returns first location. 0 not found. 1 is 1st.
 int		ft_strsrch(const char *str, char ch);
-//Function joins two character strings, creates a new char string.
-char	*ft_strjoin(char const *s1, char const *s2);
 //Function reads from a file descriptor, creating a string for its output.
 char	*ft_fetch(int fd, int buffsize);
+//Function joins two character strings, creates a new char string.
+char	*ft_strjoin(char const *s1, char const *s2);
 //Function joins the initial string with reads from a descriptor until newline.
 char	*joining(int fd, char *initial);
 //Function trims the input string such that contents after newline are cut.
