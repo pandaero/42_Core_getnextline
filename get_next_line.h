@@ -15,6 +15,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
+# include <stddef.h>
 
 //Function that outputs lines from a given file descriptor.
 char	*get_next_line(int fd);
