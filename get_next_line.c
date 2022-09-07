@@ -54,8 +54,52 @@ int	main()
 //Function trims the input string such that contents after newline are cut.
 char	*output(char *candidate)
 {
-	return ("");
+	int		i;
+	char	*out;
+
+	i = 0;
+	while (candidate[i] != '\n' && candidate[i] != '\0')
+		i++;
+	if (candidate[i] == '\n' || candidate[i] == '\0')
+	{
+		out = malloc((i + 2) * sizeof(char));
+		out[i + 1] = '\0';
+		if (candidate[i] == '\n')
+		{
+			while (i-- >= 0)
+				out[i + 1] = candidate[i + 1];
+		}
+		else
+		{
+			out[i] = '\n';
+			while (i-- >= 0)
+				out[i] = candidate[i];
+		}
+	}
+	else
+		return ((char *) 0);
+	return (out);
 }
+
+/*Test
+//gcc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c && ./a.out
+#include <stdio.h>
+
+int	main()
+{
+	char	test1[] = "Hello there\nand everything else";
+	char	test2[] = "Hello there";
+	char	*ptr;
+
+	ptr = output(test1);
+	printf("Newline Test  : %s\n", ptr);
+	free(ptr);
+	ptr = output(test2);
+	printf("Null-Term Test: %s\n", ptr);
+	free(ptr);
+	return (0);
+}
+//*/
 
 //Function takes input string and returns contents after the first newline.
 char	*remaining(char *candidate)
@@ -63,6 +107,18 @@ char	*remaining(char *candidate)
 	return ("");
 }
 
+/*
+//gcc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c && ./a.out
+#include <fcntl.h>
+#include <stdio.h>
+
+int	main()
+{
+
+	return (0);
+}
+//*/
+/*
 char	*get_next_line(int fd)
 {
 	static char	*ptr = "";
@@ -77,7 +133,7 @@ char	*get_next_line(int fd)
 	ptr = remaining(ptr);
 	return (out);
 }
-
+*/
 /*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 
