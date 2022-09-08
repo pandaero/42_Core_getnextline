@@ -122,7 +122,7 @@ char	*remaining(char *candidate)
 	ii[1] = 0;
 	while (candidate[ii[1]] != '\0')
 		ii[1]++;
-	if (ii[0] == ii[1])
+	if (ii[0] == ii[1] - 1)
 	{
 		out = malloc(1 * sizeof(char));
 		out[0] = '\0';
@@ -177,7 +177,7 @@ char	*get_next_line(int fd)
 	return (out);
 }
 
-/*Test
+//*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 #include <fcntl.h>
 #include <stdio.h>
@@ -190,13 +190,15 @@ int	main(void)
 
 	i = 1;
 	fd = open("sample.txt", O_RDONLY, 0);
+	ptr = get_next_line(fd);
 	while (ptr != (char *) 0)
 	{
-		ptr = get_next_line(fd);
 		printf("Line%d: %s", i, ptr);
 		free(ptr);
+		ptr = get_next_line(fd);
 		i++;
 	}
+	free(ptr);
 	return (0);
 }
 //*/
