@@ -18,6 +18,7 @@
 char	*joining(int fd, char *initial)
 {
 	char	*read;
+	char	*temp;
 	char	*out;
 
 	read = ft_fetch(fd, BUFFER_SIZE);
@@ -33,7 +34,9 @@ char	*joining(int fd, char *initial)
 	{
 		free(read);
 		read = ft_fetch(fd, BUFFER_SIZE);
-		out = ft_strjoin(out, read);
+		temp = ft_strjoin(out, read);
+		free(out);
+		out = temp;
 	}
 	free(read);
 	return (out);
