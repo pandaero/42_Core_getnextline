@@ -101,12 +101,18 @@ int	main(void)
 	char	*fetched;
 	int		fd;
 	int		buffsize;
+	int		i;
 
 	fd = open("sample.txt", O_RDONLY, 0);
 	buffsize = 6;
-	fetched = ft_fetch(fd, buffsize);
-	printf("Read: %s\n", fetched);
-	free(fetched);
+	i = 1;
+	while (i < 20)
+	{
+		fetched = ft_fetch(fd, buffsize);
+		printf("Read%d: %s\n", i, fetched);
+		free(fetched);
+		i++;
+	}
 	return (0);
 }
 //*/
