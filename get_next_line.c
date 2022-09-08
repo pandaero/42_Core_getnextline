@@ -23,6 +23,11 @@ char	*joining(int fd, char *initial)
 	read = ft_fetch(fd, BUFFER_SIZE);
 	if (!read)
 		return ((char *) 0);
+	if (read[0] == '\0')
+	{
+		free(read);
+		return (initial);
+	}
 	out = ft_strjoin(initial, read);
 	while (ft_strsrch(read, '\n') == 0 && read[0] != '\0')
 	{
@@ -39,9 +44,9 @@ char	*joining(int fd, char *initial)
 #include <fcntl.h>
 #include <stdio.h>
 
-int	main()
+int	main(void)
 {
-	char	*ptr = "";
+	char	*ptr;
 	int		fd;
 
 	fd = open("sample.txt", O_RDONLY, 0);
@@ -86,7 +91,7 @@ char	*output(char *candidate)
 //gcc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c && ./a.out
 #include <stdio.h>
 
-int	main()
+int	main(void)
 {
 	char	test1[] = "Hello there\nand everything else";
 	char	test2[] = "Hello there";
@@ -136,7 +141,7 @@ char	*remaining(char *candidate)
 //gcc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c && ./a.out
 #include <stdio.h>
 
-int	main()
+int	main(void)
 {
 	char	test1[] = "xxx\nxxxxx";
 	char	test2[] = "xxxxxxxxx";
@@ -163,27 +168,29 @@ char	*get_next_line(int fd)
 	if (!ptr)
 		return ((char *) 0);
 	out = output(ptr);
+	if (!out)
+		return ((char *) 0);
 	ptr = remaining(ptr);
 	return (out);
 }
 
-//*Test
+/*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 #include <fcntl.h>
 #include <stdio.h>
 
-int main(void)
+int	main(void)
 {
 	int		fd;
 	int		i;
 	char	*ptr;
 
-	i = 0;
+	i = 1;
 	fd = open("sample.txt", O_RDONLY, 0);
 	while (ptr != (char *) 0)
 	{
 		ptr = get_next_line(fd);
-		printf("Read%d: %s", i, ptr);
+		printf("Line%d: %s", i, ptr);
 		free(ptr);
 		i++;
 	}
