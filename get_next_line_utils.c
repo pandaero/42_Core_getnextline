@@ -79,16 +79,18 @@ char	*ft_fetch(int fd, int buffsize)
 	char	*string;
 	int		rdout;
 
+	rdout = 0;
 	string = malloc ((buffsize + 1) * sizeof(char));
 	if (!string)
 		return ((char *) 0);
+	string[0] = '\0';
 	rdout = read(fd, string, buffsize);
 	if (rdout == -1 || string[0] == '\0')
 	{
 		free(string);
 		return ((char *) 0);
 	}
-	string[buffsize + 1] = '\0';
+	string[buffsize] = '\0';
 	return (string);
 }
 
