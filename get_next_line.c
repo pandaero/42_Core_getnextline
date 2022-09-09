@@ -129,7 +129,7 @@ char	*remaining(char *candidate)
 	}
 	else
 	{
-		out = malloc((ii[1] - ii[0]) * sizeof(char));
+		out = malloc((ii[1] - ii[0] + 1) * sizeof(char));
 		ii[2] = 0;
 		while (ii[2] <= ii[1] - ii[0])
 		{
@@ -137,6 +137,7 @@ char	*remaining(char *candidate)
 			ii[2]++;
 		}
 	}
+	free(candidate);
 	return (out);
 }
 
@@ -177,7 +178,7 @@ char	*get_next_line(int fd)
 	return (out);
 }
 
-//*Test
+/*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 #include <fcntl.h>
 #include <stdio.h>
