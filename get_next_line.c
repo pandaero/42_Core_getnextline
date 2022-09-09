@@ -114,6 +114,7 @@ int	main(void)
 char	*remaining(char *candidate)
 {
 	int		ii[3];
+	char	*temp;
 	char	*out;
 
 	ii[0] = 0;
@@ -124,19 +125,18 @@ char	*remaining(char *candidate)
 		ii[1]++;
 	if (ii[0] == ii[1] - 1)
 	{
-		out = malloc(1 * sizeof(char));
-		out[0] = '\0';
+		temp = malloc(1 * sizeof(char));
+		temp[0] = '\0';
 	}
 	else
 	{
-		out = malloc((ii[1] - ii[0] + 1) * sizeof(char));
-		ii[2] = 0;
-		while (ii[2] <= ii[1] - ii[0])
-		{
-			out[ii[2]] = candidate[ii[0] + 1 + ii[2]];
-			ii[2]++;
-		}
+		temp = malloc((ii[1] - ii[0] + 1) * sizeof(char));
+		ii[2] = -1;
+		while (ii[2]++ <= ii[1] - ii[0])
+			temp[ii[2]] = candidate[ii[0] + 1 + ii[2]];
 	}
+	out = temp;
+	free(temp);
 	free(candidate);
 	return (out);
 }
