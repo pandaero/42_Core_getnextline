@@ -19,7 +19,7 @@ char	*joining(int fd, char *initial)
 {
 	char	*read;
 	char	*temp;
-	char	*out;
+	char	*joinout;
 
 	read = ft_fetch(fd, BUFFER_SIZE);
 	if (!read)
@@ -29,17 +29,17 @@ char	*joining(int fd, char *initial)
 		free(read);
 		return (initial);
 	}
-	out = ft_strjoin(initial, read);
+	joinout = ft_strjoin(initial, read);
 	while (ft_strsrch(read, '\n') == 0 && read[0] != '\0')
 	{
 		free(read);
 		read = ft_fetch(fd, BUFFER_SIZE);
-		temp = ft_strjoin(out, read);
-		free(out);
-		out = temp;
+		temp = ft_strjoin(joinout, read);
+		free(joinout);
+		joinout = temp;
 	}
 	free(read);
-	return (out);
+	return (joinout);
 }
 
 /* Test
