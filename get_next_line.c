@@ -23,14 +23,12 @@ char	*joining(int fd, char *initial)
 
 	read = ft_fetch(fd, BUFFER_SIZE);
 	if (!read)
-		return ((char *) 0);
-	if (read[0] == '\0')
 	{
 		free(read);
 		return (initial);
 	}
 	joinout = ft_strjoin(initial, read);
-	while (ft_strsrch(read, '\n') == 0 && read[0] != '\0')
+	while (ft_strsrch(joinout, '\n') == 0 && read[0] != '\0')
 	{
 		free(read);
 		read = ft_fetch(fd, BUFFER_SIZE);
