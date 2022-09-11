@@ -121,49 +121,67 @@ int	main(void)
 //Function takes input string and returns contents after the first newline.
 char	*remaining(char *candidate)
 {
-	int		ii[3];
-	char	*temp;
-	char	*out;
+	int		ii[2];
+	char	*remout;
 
 	ii[0] = 0;
-	while (candidate[ii[0]] != '\n')
+	while (candidate[ii[0]] != '\0' && candidate[ii[0]] != '\n')
 		ii[0]++;
+	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(char));
+	if (candidate[ii[0]] == '\0' || !remout)
+	{
+		free(candidate);
+		free(remout);
+		return ((char *) 0);
+	}
+	ii[0]++;
 	ii[1] = 0;
-	while (candidate[ii[1]] != '\0')
+	while(candidate[ii[0]] != '\0')
+	{
+		remout[ii[1]] = candidate[ii[0]];
+		ii[0]++;
 		ii[1]++;
-	if (ii[0] == ii[1] - 1)
-	{
-		temp = malloc(1 * sizeof(char));
-		temp[0] = '\0';
 	}
-	else
-	{
-		temp = malloc((ii[1] - ii[0] + 1) * sizeof(char));
-		ii[2] = -1;
-		while (ii[2]++ <= ii[1] - ii[0])
-			temp[ii[2]] = candidate[ii[0] + 1 + ii[2]];
-	}
-	out = temp;
-	free(temp);
+	remout[ii[1]] = '\0';
 	free(candidate);
-	return (out);
+	return (remout);
 }
 
 /*Test
 //gcc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c && ./a.out
 #include <stdio.h>
+#include <string.h>
 
 int	main(void)
 {
-	char	test1[] = "xxx\nxxxxx";
-	char	test2[] = "xxxxxxxxx";
 	char	*ptr;
+	char	*test1;
+	test1 = strdup("xxxx\nxx\nxxx\nx\n\n");
+	char	*test2;
+	test2 = strdup("xx");
+	char	*test3;
+	test3 = strdup("xxxxxxxx\n\n");
+	char	*test4;
+	test4 = malloc(2 * sizeof(char));
+	test4[0] = '\0';
+	test4[1] = '\0';
+	char	*test5;
+	test5 = strdup("\n\n");
 
 	ptr = remaining(test1);
 	printf("Newline Test: %s\n", ptr);
 	free(ptr);
 	ptr = remaining(test2);
 	printf("Nothing Test: %s\n", ptr);
+	free(ptr);
+	ptr = remaining(test3);
+	printf("Newlast Test: %s\n", ptr);
+	free(ptr);
+	ptr = remaining(test4);
+	printf("Empty Test  : %s\n", ptr);
+	free(ptr);
+	ptr = remaining(test5);
+	printf("Just Newline: %s\n", ptr);
 	free(ptr);
 	return (0);
 }
