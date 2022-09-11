@@ -54,7 +54,7 @@ int	main(void)
 
 	fd = open("sample.txt", O_RDONLY, 0);
 	ptr = joining(fd, ptr);
-	printf("Joined: %s", ptr);
+	printf("Joined: %s\n", ptr);
 	free(ptr);
 	return (0);
 }
