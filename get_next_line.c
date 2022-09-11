@@ -64,30 +64,30 @@ int	main(void)
 char	*output(char *candidate)
 {
 	int		i;
-	char	*out;
+	char	*outout;
 
 	i = 0;
-	while (candidate[i] != '\n' && candidate[i] != '\0')
+	while (candidate[i] != '\0' && candidate[i] != '\n')
 		i++;
 	if (candidate[i] == '\n' || candidate[i] == '\0')
 	{
-		out = malloc((i + 2) * sizeof(char));
-		out[i + 1] = '\0';
+		outout = malloc((i + 2) * sizeof(char));
+		outout[i + 1] = '\0';
 		if (candidate[i] == '\n')
 		{
 			while (i-- >= 0)
-				out[i + 1] = candidate[i + 1];
+				outout[i + 1] = candidate[i + 1];
 		}
 		else
 		{
-			out[i] = '\n';
+			outout[i] = '\n';
 			while (i-- >= 0)
-				out[i] = candidate[i];
+				outout[i] = candidate[i];
 		}
 	}
 	else
 		return ((char *) 0);
-	return (out);
+	return (outout);
 }
 
 /*Test
