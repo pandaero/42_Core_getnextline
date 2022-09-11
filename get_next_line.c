@@ -96,8 +96,10 @@ char	*output(char *candidate)
 
 int	main(void)
 {
-	char	test1[] = "Hello there\nand everything else";
+	char	test1[] = "Hello there\nan\nd \neverything else";
 	char	test2[] = "Hello there";
+	char	test3[] = "";
+	char	test4[] = "\n\n";
 	char	*ptr;
 
 	ptr = output(test1);
@@ -105,6 +107,12 @@ int	main(void)
 	free(ptr);
 	ptr = output(test2);
 	printf("Null-Term Test: %s\n", ptr);
+	free(ptr);
+	ptr = output(test3);
+	printf("Empty Test    : %s\n", ptr);
+	free(ptr);
+	ptr = output(test4);
+	printf("Newlines Test : %s\n", ptr);
 	free(ptr);
 	return (0);
 }
