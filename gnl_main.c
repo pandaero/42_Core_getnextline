@@ -1,5 +1,8 @@
 //*Test
 //gcc gnl_main.c get_next_line.c get_next_line_utils.c && ./a.out | cat -e
+#include <stdio.h>
+#include <fcntl.h>
+#include "get_next_line.h"
 
 int main(void)
 {
@@ -8,11 +11,13 @@ int main(void)
 	char	*ptr;
 
 	i = 0;
+	//Standard Input, close it with CTRL + D
+	fd = 0;
 	fd = open("sample.txt", O_RDONLY, 0);
 	while (ptr != (char *) 0)
 	{
 		ptr = get_next_line(fd);
-		printf("Read%d: %s", i, ptr);
+		printf("Line%d: %s", i, ptr);
 		free(ptr);
 		i++;
 	}
