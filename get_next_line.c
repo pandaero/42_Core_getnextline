@@ -11,33 +11,33 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <limits.h>
 #include "get_next_line.h"
 
 //Function joins the initial string with reads from a descriptor until newline.
 char	*joining(int fd, char *initial)
 {
-	char	*read;
-	char	*temp;
-	char	*joinout;
+	char	*readbf;
+	int		i;
 
-	read = ft_fetch(fd, BUFFER_SIZE);
-	if (!read)
-	{
-		free(read);
+	readbf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!readbf)
 		return (initial);
-	}
-	joinout = ft_strjoin(initial, read);
-	while (ft_strsrch(joinout, '\n') == 0 && read[0] != '\0')
+	i = 1;
+	while (ft_strsrch(initial, '\n') == 0 && i != 0)
 	{
-		free(read);
-		read = ft_fetch(fd, BUFFER_SIZE);
-		temp = ft_strjoin(joinout, read);
-		free(joinout);
-		joinout = temp;
+		i = read(fd, readbf, BUFFER_SIZE);
+		if (i == -1)
+		{
+			free(readbf);
+			return ((char *) 0);
+		}
+		readbf[i] = '\0';
+		initial = ft_strjoin(initial, readbf);
 	}
-	free(read);
-	return (joinout);
+	free(readbf);
+	return (initial);
 }
 
 /* Test
@@ -134,7 +134,7 @@ char	*remaining(char *candidate)
 	}
 	ii[0]++;
 	ii[1] = 0;
-	while(candidate[ii[0]] != '\0')
+	while (candidate[ii[0]] != '\0')
 	{
 		remout[ii[1]] = candidate[ii[0]];
 		ii[0]++;
@@ -190,7 +190,7 @@ char	*get_next_line(int fd)
 	static char	*ptr = "";
 	char		*out;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || !ptr)
 		return ((char *) 0);
 	ptr = joining(fd, ptr);
 	if (!ptr)
