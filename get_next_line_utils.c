@@ -80,7 +80,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	unsigned int	i;
 	unsigned int	j;
 
-	ptr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	ptr = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(*ptr));
 	if (!ptr)
 		return ((char *) 0);
 	i = 0;

@@ -21,7 +21,7 @@ char	*joining(int fd, char *initial)
 	char	*readbf;
 	int		rd;
 
-	readbf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	readbf = malloc((BUFFER_SIZE + 1) * sizeof(*readbf));
 	if (!readbf)
 		return (initial);
 	rd = 1;
@@ -125,7 +125,7 @@ char	*remaining(char *candidate)
 	ii[0] = 0;
 	while (candidate[ii[0]] != '\0' && candidate[ii[0]] != '\n')
 		ii[0]++;
-	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(char));
+	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(*remout));
 	if (candidate[ii[0]] == '\0')
 	{
 		free(candidate);
