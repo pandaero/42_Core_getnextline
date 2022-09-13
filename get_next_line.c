@@ -69,7 +69,7 @@ char	*output(char *candidate)
 		i++;
 	if (candidate[i] == '\n' || candidate[i] == '\0')
 	{
-		outout = malloc((i + 2) * sizeof(char));
+		outout = malloc((i + 2) * sizeof(*outout));
 		outout[i + 1] = '\0';
 		if (candidate[i] == '\n')
 		{
