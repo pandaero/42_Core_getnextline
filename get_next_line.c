@@ -19,25 +19,22 @@
 char	*joining(int fd, char *initial)
 {
 	char	*readbf;
-	char	*temp;
-	int		i;
+	int		rd;
 
 	readbf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!readbf)
 		return (initial);
-	i = 1;
-	while (ft_strsrch(initial, '\n') == 0 && i != 0)
+	rd = 1;
+	while (ft_strsrch(initial, '\n') == 0 && rd != 0)
 	{
-		i = read(fd, readbf, BUFFER_SIZE);
-		if (i == -1)
+		rd = read(fd, readbf, BUFFER_SIZE);
+		if (rd == -1)
 		{
 			free(readbf);
 			return ((char *) 0);
 		}
-		readbf[i] = '\0';
-		temp = ft_strjoin(initial, readbf);
-		free(initial);
-		initial = temp;
+		readbf[rd] = '\0';
+		initial = ft_strjoin(initial, readbf);
 	}
 	free(readbf);
 	return (initial);
@@ -129,7 +126,7 @@ char	*remaining(char *candidate)
 	while (candidate[ii[0]] != '\0' && candidate[ii[0]] != '\n')
 		ii[0]++;
 	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(char));
-	if (candidate[ii[0]] == '\0' || !remout)
+	if (candidate[ii[0]] == '\0')
 	{
 		free(candidate);
 		free(remout);
@@ -205,7 +202,7 @@ char	*get_next_line(int fd)
 	return (out);
 }
 
-//*Test
+/*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 #include <fcntl.h>
 #include <stdio.h>
@@ -217,6 +214,8 @@ int	main(void)
 	char	*ptr;
 
 	i = 1;
+	//Standard Input, close it with CTRL + D
+	fd = 0;
 	fd = open("sample.txt", O_RDONLY, 0);
 	ptr = get_next_line(fd);
 	while (ptr != (char *) 0)
@@ -226,7 +225,6 @@ int	main(void)
 		ptr = get_next_line(fd);
 		i++;
 	}
-	free(ptr);
 	return (0);
 }
 //*/
