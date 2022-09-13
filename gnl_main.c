@@ -1,5 +1,5 @@
-/*Test
-//gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
+//*Test
+//gcc gnl_main.c get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 
 int main(void)
 {
