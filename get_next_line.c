@@ -19,6 +19,7 @@
 char	*joining(int fd, char *initial)
 {
 	char	*readbf;
+	char	*temp;
 	int		i;
 
 	readbf = malloc((BUFFER_SIZE + 1) * sizeof(char));
@@ -34,7 +35,9 @@ char	*joining(int fd, char *initial)
 			return ((char *) 0);
 		}
 		readbf[i] = '\0';
-		initial = ft_strjoin(initial, readbf);
+		temp = ft_strjoin(initial, readbf);
+		free(initial);
+		initial = temp;
 	}
 	free(readbf);
 	return (initial);
@@ -202,7 +205,7 @@ char	*get_next_line(int fd)
 	return (out);
 }
 
-/*Test
+//*Test
 //gcc get_next_line.c get_next_line_utils.c && ./a.out | cat -e
 #include <fcntl.h>
 #include <stdio.h>
