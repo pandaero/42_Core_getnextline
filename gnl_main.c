@@ -13,7 +13,7 @@ int main(void)
 
 	//Standard Input, close it with CTRL + D
 	fd = 0;
-	fd = open("sample.txt", O_RDONLY, 0);
+	fd = open("./samples/sample1.txt", O_RDONLY, 0);
 	i = 1;
 	while (line != (char *) 0)
 	{
