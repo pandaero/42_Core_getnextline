@@ -28,11 +28,13 @@ char	*joining(int fd, char *initial)
 	while (ft_strsrch(initial, '\n') == 0 && rd != 0)
 	{
 		rd = read(fd, readbf, BUFFER_SIZE);
-		if (rd == -1)
+		if (rd == -1 || rd == 0)
 		{
 			free(readbf);
+			if (rd == 0)
+				return (initial);
 			return ((char *) 0);
-		}
+		}	
 		readbf[rd] = '\0';
 		initial = ft_strjoin(initial, readbf);
 	}
