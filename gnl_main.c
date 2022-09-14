@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-int main(void)
+int	main(void)
 {
 	int		fd;
 	int		i;
