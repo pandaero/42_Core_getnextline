@@ -16,14 +16,16 @@
 #include "get_next_line.h"
 
 //Function joins the initial string with reads from a descriptor until newline.
-char	*joining(int fd, char *initial)
+char	*joining(int fd, char *initial, int alloc)
 {
 	char	*readbf;
+	char	*temp;
 	int		rd;
 
 	readbf = malloc((BUFFER_SIZE + 1) * sizeof(*readbf));
 	if (!readbf)
 		return (initial);
+	alloc = 0;
 	rd = 1;
 	while (ft_strsrch(initial, '\n') == 0 && rd != 0)
 	{
@@ -36,7 +38,15 @@ char	*joining(int fd, char *initial)
 			return ((char *) 0);
 		}	
 		readbf[rd] = '\0';
-		initial = ft_strjoin(initial, readbf);
+		if (alloc > 0)
+		{
+			temp = ft_strjoin(initial, readbf);
+			free(initial);
+			initial = temp;
+		}
+		else 
+			initial = ft_strjoin(initial, readbf);
+		alloc++;
 	}
 	free(readbf);
 	return (initial);
@@ -130,7 +140,6 @@ char	*remaining(char *candidate)
 	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(*remout));
 	if (candidate[ii[0]] == '\0')
 	{
-		free(candidate);
 		free(remout);
 		return ((char *) 0);
 	}
@@ -143,7 +152,6 @@ char	*remaining(char *candidate)
 		ii[1]++;
 	}
 	remout[ii[1]] = '\0';
-	free(candidate);
 	return (remout);
 }
 
