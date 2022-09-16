@@ -199,17 +199,19 @@ int	main(void)
 char	*get_next_line(int fd)
 {
 	static char	*ptr = "";
+	char		*joined;
 	char		*out;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || !ptr)
 		return ((char *) 0);
-	ptr = joining(fd, ptr);
+	joined = joining(fd, ptr);
 	if (!ptr)
 		return ((char *) 0);
-	out = output(ptr);
+	out = output(joined);
 	if (!out)
 		return ((char *) 0);
-	ptr = remaining(ptr);
+	ptr = remaining(joined);
+	free(joined);
 	return (out);
 }
 
