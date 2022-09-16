@@ -125,8 +125,9 @@ int	main(void)
 	char	s2[] = " and me";
 	char	*join;
 
+	printf("Test: s1-%s, ", s1);
 	join = ft_strjoinmod(s1, s2);
-	printf("Test: s1-%s, s2-%s, Out-%s\n", s1, s2, join);
+	printf("s2-%s, Out-%s\n", s2, join);
 	free(join);
 	return (0);
 }
