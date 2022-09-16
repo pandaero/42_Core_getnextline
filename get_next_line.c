@@ -80,6 +80,8 @@ char	*output(char *candidate)
 	i = 0;
 	while (candidate[i] != '\0' && candidate[i] != '\n')
 		i++;
+	if (i == 0 && candidate[i] == '\0')
+		return ((char *) 0);
 	if (candidate[i] == '\n' || candidate[i] == '\0')
 	{
 		outout = malloc((i + 2) * sizeof(*outout));
