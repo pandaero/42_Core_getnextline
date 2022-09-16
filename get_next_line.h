@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str);
 //Function searches for char and returns first location. 0 not found. 1 is 1st.
 int		ft_strsrch(const char *str, char ch);
 //Function joins two character strings, creates a new char string.
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(const char *s1, const char *s2);
 //Function joins the initial string with reads from a descriptor until newline.
 char	*joining(int fd, char *initial);
 //Function trims the input string such that contents after newline are cut.
