@@ -22,6 +22,7 @@ int	main(void)
 		free(line);
 		i++;
 	}
+	free(line);
 	return (0);
 }
 //*/

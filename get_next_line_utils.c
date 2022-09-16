@@ -74,7 +74,7 @@ int	main(void)
 //*/
 
 //Function joins two character strings, creates a new char string.
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	unsigned char	*ptr;
 	unsigned int	i;
@@ -114,3 +114,41 @@ int	main(void)
 	return (0);
 }
 //*/
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	unsigned int	i;
+	unsigned char	*pdst;
+	unsigned char	*psrc;
+
+	i = 0;
+	psrc = (unsigned char *) src;
+	pdst = (unsigned char *) dst;
+	while (n > i)
+	{
+		pdst[i] = psrc[i];
+		i++;
+	}
+	return ((void *) dst);
+}
+
+char	*ft_strdup(char *str)
+{
+	char			*dst;
+	unsigned int	size;
+
+	if (str == 0)
+		return ((char *) 0);
+	size = ft_strlen(str);
+	dst = malloc((1 + size) * (sizeof(char)));
+	if (!dst)
+		return ((char *) 0);
+	if (str[0] == '\0')
+	{
+		dst[0] = '\0';
+		return ((char *) dst);
+	}
+	dst = ft_memcpy(dst, str, size + 1);
+	free(str);
+	return ((char *) dst);
+}

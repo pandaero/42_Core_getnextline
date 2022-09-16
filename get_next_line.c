@@ -16,11 +16,12 @@
 #include "get_next_line.h"
 
 //Function joins the initial string with reads from a descriptor until newline.
-char	*joining(int fd, char *initial, int alloc)
+char	*joining(int fd, char *initial)
 {
 	char	*readbf;
 	char	*temp;
 	int		rd;
+	int		alloc;
 
 	readbf = malloc((BUFFER_SIZE + 1) * sizeof(*readbf));
 	if (!readbf)
