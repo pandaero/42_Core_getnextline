@@ -64,29 +64,26 @@ char	*output(char *candidate)
 	int		i;
 	char	*outout;
 
+	if (candidate[0] == '\0')
+		return ((char *) 0);
 	i = 0;
 	while (candidate[i] != '\0' && candidate[i] != '\n')
 		i++;
-	if (i == 0 && candidate[i] == '\0')
+	outout = malloc((i + 2) * sizeof(*outout));
+	if (!outout)
 		return ((char *) 0);
-	if (candidate[i] == '\n' || candidate[i] == '\0')
+	i = 0;
+	while (candidate[i] != '\0' && candidate[i] != '\n')
 	{
-		outout = malloc((i + 2) * sizeof(*outout));
-		outout[i + 1] = '\0';
-		if (candidate[i] == '\n')
-		{
-			while (i-- >= 0)
-				outout[i + 1] = candidate[i + 1];
-		}
-		else
-		{
-			outout[i] = '\n';
-			while (i-- >= 0)
-				outout[i] = candidate[i];
-		}
+		outout[i] = candidate[i];
+		i++;
 	}
-	else
-		return ((char *) 0);
+	if (candidate[i] == '\n')
+	{
+		outout[i] = candidate[i];
+		i++;
+	}
+	outout[i] = '\0';
 	return (outout);
 }
 

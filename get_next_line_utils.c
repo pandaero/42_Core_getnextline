@@ -49,7 +49,7 @@ char	*ft_strchr(char *str, int ch)
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i])
+	while (str[i] != '\0')
 	{
 		if (str[i] == (char) ch)
 			return ((char *) &str[i]);

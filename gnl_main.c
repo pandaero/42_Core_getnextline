@@ -9,7 +9,7 @@ int	main(void)
 {
 	int		fd;
 	int		i;
-	char	*line;
+	char	*line = "";
 
 	//Standard Input, close it with CTRL + D
 	fd = 0;
