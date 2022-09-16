@@ -205,7 +205,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || !ptr)
 		return ((char *) 0);
 	joined = joining(fd, ptr);
-	if (!ptr)
+	if (!joined)
 		return ((char *) 0);
 	out = output(joined);
 	if (!out)
