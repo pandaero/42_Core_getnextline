@@ -18,14 +18,14 @@
 //Function joins the initial string with reads from a descriptor until newline.
 char	*joining(int fd, char *initial)
 {
-	char		*readbf;
-	int	rd;
+	char	*readbf;
+	int		rd;
 
 	readbf = malloc((BUFFER_SIZE + 1) * sizeof(*readbf));
 	if (!readbf)
 		return (initial);
 	rd = 1;
-	while (ft_strchr(initial, '\n') == 0 && rd != 0)
+	while (ft_strsrch(initial, '\n') == 0 && rd != 0)
 	{
 		rd = read(fd, readbf, BUFFER_SIZE);
 		if (rd == -1)
