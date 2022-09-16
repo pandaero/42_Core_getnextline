@@ -42,22 +42,6 @@ int	main(void)
 }
 //*/
 
-char	*ft_strchr(char *str, int ch)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
-	{
-		if (str[i] == (char) ch)
-			return ((char *) &str[i]);
-		i++;
-	}
-	return (0);
-}
-
 //Function searches for char and returns first location. 0 not found. 1 is 1st.
 int	ft_strsrch(const char *str, char ch)
 {
@@ -81,8 +65,8 @@ int	ft_strsrch(const char *str, char ch)
 
 int	main(void)
 {
-	char	*str="Hello";
-	char	ch='3';
+	char	*str = "Hello";
+	char	ch = '3';
 
 	printf("Str: %s, Ch: %c, Out: %d\n", str, ch, ft_strsrch(str, ch));
 	return (0);

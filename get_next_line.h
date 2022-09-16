@@ -23,7 +23,6 @@ char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
 //Function searches for char and returns first location. 0 not found. 1 is 1st.
 int		ft_strsrch(const char *str, char ch);
-char	*ft_strchr(char *str, int ch);
 //Function joins two character strings, creates a new char string.
 char	*ft_strjoinmod(char *s1, char *s2);
 //Function joins the initial string with reads from a descriptor until newline.
