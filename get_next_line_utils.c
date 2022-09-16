@@ -92,38 +92,30 @@ int	main(void)
 //Function joins two character strings, creates a new char string.
 char	*ft_strjoinmod(char *s1, char *s2)
 {
-	char			*ptr;
-	unsigned int	i;
-	unsigned int	j;
+	unsigned char	*ptr;
+	unsigned int	ii[2];
 
 	if (!s1)
 	{
-		s1 = (char *)malloc(1 * sizeof(*s1));
+		s1 = malloc(1 * sizeof(*s1));
 		s1[0] = '\0';
 	}
-	if (!s1 || !s2)
-		return ((char *) 0);
 	ptr = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(*ptr));
 	if (!ptr)
 		return ((char *) 0);
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		ptr[i + j] = s2[j];
-		j++;
-	}
-	ptr[i + j] = '\0';
+	ii[0] = -1;
+	while (s1[++ii[0]] != '\0')
+		ptr[ii[0]] = s1[ii[0]];
 	free(s1);
+	ii[1] = -1;
+	while (s2[++ii[1]] != '\0')
+		ptr[ii[0] + ii[1]] = s2[ii[1]];
+	ptr[ii[0] + ii[1]] = 0;
 	return ((char *) ptr);
 }
 
 /* Test | gcc -Wall -Werror -Wextra get_next_line_utils.c && ./a.out
+//valgrind --leak-check=full ./a.out
 #include <stdio.h>
 #include <string.h>
 
