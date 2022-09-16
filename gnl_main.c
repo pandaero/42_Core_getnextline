@@ -15,14 +15,13 @@ int	main(void)
 	fd = 0;
 	fd = open("./samples/sample1.txt", O_RDONLY, 0);
 	i = 1;
-	while (line != (char *) 0)
+	while (line != (char *) 0 && i < 14)
 	{
 		line = get_next_line(fd);
 		printf("Line%d: %s", i, line);
 		free(line);
 		i++;
 	}
-	free(line);
 	return (0);
 }
 //*/

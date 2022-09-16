@@ -42,13 +42,29 @@ int	main(void)
 }
 //*/
 
+char	*ft_strchr(char *str, int ch)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == (char) ch)
+			return ((char *) &str[i]);
+		i++;
+	}
+	return (0);
+}
+
 //Function searches for char and returns first location. 0 not found. 1 is 1st.
 int	ft_strsrch(const char *str, char ch)
 {
 	unsigned int	i;
-	int				loc;
 
-	loc = 0;
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -56,7 +72,7 @@ int	ft_strsrch(const char *str, char ch)
 			return (i + 1);
 		i++;
 	}
-	return (loc);
+	return (0);
 }
 
 /*Test strsrch
@@ -74,12 +90,19 @@ int	main(void)
 //*/
 
 //Function joins two character strings, creates a new char string.
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoinmod(char *s1, char *s2)
 {
-	unsigned char	*ptr;
+	char			*ptr;
 	unsigned int	i;
 	unsigned int	j;
 
+	if (!s1)
+	{
+		s1 = (char *)malloc(1 * sizeof(*s1));
+		s1[0] = '\0';
+	}
+	if (!s1 || !s2)
+		return ((char *) 0);
 	ptr = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(*ptr));
 	if (!ptr)
 		return ((char *) 0);
@@ -95,20 +118,22 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		ptr[i + j] = s2[j];
 		j++;
 	}
-	ptr[i + j] = 0;
+	ptr[i + j] = '\0';
+	free(s1);
 	return ((char *) ptr);
 }
 
 /* Test | gcc -Wall -Werror -Wextra get_next_line_utils.c && ./a.out
 #include <stdio.h>
+#include <string.h>
 
 int	main(void)
 {
-	char	s1[] = "You";
+	char	*s1 = strdup("You");
 	char	s2[] = " and me";
 	char	*join;
 
-	join = ft_strjoin(s1, s2);
+	join = ft_strjoinmod(s1, s2);
 	printf("Test: s1-%s, s2-%s, Out-%s\n", s1, s2, join);
 	free(join);
 	return (0);

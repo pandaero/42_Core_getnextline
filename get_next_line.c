@@ -18,36 +18,23 @@
 //Function joins the initial string with reads from a descriptor until newline.
 char	*joining(int fd, char *initial)
 {
-	char	*readbf;
-	char	*temp;
-	int		rd;
-	int		alloc;
+	char		*readbf;
+	int	rd;
 
 	readbf = malloc((BUFFER_SIZE + 1) * sizeof(*readbf));
 	if (!readbf)
 		return (initial);
-	alloc = 0;
 	rd = 1;
-	while (ft_strsrch(initial, '\n') == 0 && rd != 0)
+	while (ft_strchr(initial, '\n') == 0 && rd != 0)
 	{
 		rd = read(fd, readbf, BUFFER_SIZE);
-		if (rd == -1 || rd == 0)
+		if (rd == -1)
 		{
 			free(readbf);
-			if (rd == 0)
-				return (initial);
 			return ((char *) 0);
 		}	
 		readbf[rd] = '\0';
-		if (alloc > 0)
-		{
-			temp = ft_strjoin(initial, readbf);
-			free(initial);
-			initial = temp;
-		}
-		else 
-			initial = ft_strjoin(initial, readbf);
-		alloc++;
+		initial = ft_strjoinmod(initial, readbf);
 	}
 	free(readbf);
 	return (initial);
@@ -80,6 +67,8 @@ char	*output(char *candidate)
 	i = 0;
 	while (candidate[i] != '\0' && candidate[i] != '\n')
 		i++;
+	if (i == 0 && candidate[i] == '\0')
+		return ((char *) 0);
 	if (candidate[i] == '\n' || candidate[i] == '\0')
 	{
 		outout = malloc((i + 2) * sizeof(*outout));
@@ -138,12 +127,14 @@ char	*remaining(char *candidate)
 	ii[0] = 0;
 	while (candidate[ii[0]] != '\0' && candidate[ii[0]] != '\n')
 		ii[0]++;
-	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(*remout));
 	if (candidate[ii[0]] == '\0')
 	{
-		free(remout);
+		free(candidate);
 		return ((char *) 0);
 	}
+	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(*remout));
+	if (!remout)
+		return ((char *) 0);
 	ii[0]++;
 	ii[1] = 0;
 	while (candidate[ii[0]] != '\0')
@@ -153,6 +144,7 @@ char	*remaining(char *candidate)
 		ii[1]++;
 	}
 	remout[ii[1]] = '\0';
+	free(candidate);
 	return (remout);
 }
 
@@ -198,20 +190,16 @@ int	main(void)
 
 char	*get_next_line(int fd)
 {
-	static char	*ptr = "";
-	char		*joined;
+	static char	*ptr;
 	char		*out;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || !ptr)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return ((char *) 0);
-	joined = joining(fd, ptr);
-	if (!joined)
+	ptr = joining(fd, ptr);
+	if (!ptr)
 		return ((char *) 0);
-	out = output(joined);
-	if (!out)
-		return ((char *) 0);
-	ptr = remaining(joined);
-	free(joined);
+	out = output(ptr);
+	ptr = remaining(ptr);
 	return (out);
 }
 
