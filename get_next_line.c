@@ -189,7 +189,6 @@ char	*get_next_line(int fd)
 {
 	static char	*ptr;
 	char		*out;
-	char		*rem;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return ((char *) 0);
