@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "get_next_line.h"
 
 //Function determines length of the string (number of characters).
 size_t	ft_strlen(const char *str)
@@ -43,7 +41,7 @@ int	main(void)
 //*/
 
 //Function searches for char and returns first location. 0 not found. 1 is 1st.
-int	ft_strsrch(char *str, int ch)
+int	ft_strsrch(const char *str, char ch)
 {
 	unsigned int	i;
 

@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <limits.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 //Function joins the initial string with reads from a descriptor until newline.
 char	*joining(int fd, char *initial)
@@ -185,19 +185,43 @@ int	main(void)
 }
 //*/
 
+//Function checks the table for entry with fd. If fd is not found, entry made.
+unsigned int	readtable(int fd, struct s_fdtable *ptrtable)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	if (fd == 0)
+		return (0);
+	i = 1;
+	while ((ptrtable + i)->fd != fd && i < 100)
+		i++;
+	if (i == 100)
+	{
+		j = 1;
+		while (ptrtable[j].fd != 0 && j < 100)
+			j++;
+		(ptrtable + j)->fd = fd;
+		return (j);
+	}
+	else
+		return (i);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*ptr;
-	char		*out;
-	char		*rem;
+	static struct s_fdtable	ptrtable[100];
+	char					*out;
+	unsigned int			i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return ((char *) 0);
-	ptr = joining(fd, ptr);
-	if (!ptr)
+	i = readtable(fd, ptrtable);
+	ptrtable[i].ptr = joining(fd, ptrtable[i].ptr);
+	if (!ptrtable[i].ptr)
 		return ((char *) 0);
-	out = output(ptr);
-	ptr = remaining(ptr);
+	out = output(ptrtable[i].ptr);
+	ptrtable[i].ptr = remaining(ptrtable[i].ptr);
 	return (out);
 }
 
