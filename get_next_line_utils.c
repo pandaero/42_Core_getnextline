@@ -43,12 +43,12 @@ int	main(void)
 //*/
 
 //Function searches for char and returns first location. 0 not found. 1 is 1st.
-int	ft_strsrch(const char *str, char ch)
+int	ft_strsrch(char *str, int ch)
 {
 	unsigned int	i;
-	int				loc;
 
-	loc = 0;
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -56,7 +56,7 @@ int	ft_strsrch(const char *str, char ch)
 			return (i + 1);
 		i++;
 	}
-	return (loc);
+	return (0);
 }
 
 /*Test strsrch
@@ -74,28 +74,33 @@ int	main(void)
 //*/
 
 //Function joins two character strings, creates a new char string.
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, const char *s2)
 {
 	unsigned char	*ptr;
-	unsigned int	i;
-	unsigned int	j;
+	unsigned int	ii[2];
 
+	if (!s1)
+	{
+		s1 = malloc(1 * sizeof(*s1));
+		s1[0] = '\0';
+	}
 	ptr = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(*ptr));
 	if (!ptr)
 		return ((char *) 0);
-	i = 0;
-	while (s1[i] != '\0')
+	ii[0] = 0;
+	while (s1[ii[0]] != '\0')
 	{
-		ptr[i] = s1[i];
-		i++;
+		ptr[ii[0]] = s1[ii[0]];
+		ii[0]++;
 	}
-	j = 0;
-	while (s2[j] != '\0')
+	free(s1);
+	ii[1] = 0;
+	while (s2[ii[1]] != '\0')
 	{
-		ptr[i + j] = s2[j];
-		j++;
+		ptr[ii[0] + ii[1]] = s2[ii[1]];
+		ii[1]++;
 	}
-	ptr[i + j] = 0;
+	ptr[ii[0] + ii[1]] = 0;
 	return ((char *) ptr);
 }
 

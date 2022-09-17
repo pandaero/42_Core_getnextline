@@ -45,7 +45,7 @@ char	*joining(int fd, char *initial)
 			free(initial);
 			initial = temp;
 		}
-		else 
+		else
 			initial = ft_strjoin(initial, readbf);
 		alloc++;
 	}
@@ -77,29 +77,26 @@ char	*output(char *candidate)
 	int		i;
 	char	*outout;
 
+	if (candidate[0] == '\0')
+		return ((char *) 0);
 	i = 0;
 	while (candidate[i] != '\0' && candidate[i] != '\n')
 		i++;
-	if (i == 0 && candidate[i] == '\0')
+	outout = malloc((i + 2) * sizeof(*outout));
+	if (!outout)
 		return ((char *) 0);
-	if (candidate[i] == '\n' || candidate[i] == '\0')
+	i = 0;
+	while (candidate[i] != '\0' && candidate[i] != '\n')
 	{
-		outout = malloc((i + 2) * sizeof(*outout));
-		outout[i + 1] = '\0';
-		if (candidate[i] == '\n')
-		{
-			while (i-- >= 0)
-				outout[i + 1] = candidate[i + 1];
-		}
-		else
-		{
-			outout[i] = '\n';
-			while (i-- >= 0)
-				outout[i] = candidate[i];
-		}
+		outout[i] = candidate[i];
+		i++;
 	}
-	else
-		return ((char *) 0);
+	if (candidate[i] == '\n')
+	{
+		outout[i] = candidate[i];
+		i++;
+	}
+	outout[i] = '\0';
 	return (outout);
 }
 
@@ -140,12 +137,14 @@ char	*remaining(char *candidate)
 	ii[0] = 0;
 	while (candidate[ii[0]] != '\0' && candidate[ii[0]] != '\n')
 		ii[0]++;
-	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(*remout));
 	if (candidate[ii[0]] == '\0')
 	{
-		free(remout);
+		free(candidate);
 		return ((char *) 0);
 	}
+	remout = malloc((ft_strlen(candidate) - ii[0] + 1) * sizeof(*remout));
+	if (!remout)
+		return ((char *) 0);
 	ii[0]++;
 	ii[1] = 0;
 	while (candidate[ii[0]] != '\0')
@@ -155,6 +154,7 @@ char	*remaining(char *candidate)
 		ii[1]++;
 	}
 	remout[ii[1]] = '\0';
+	free(candidate);
 	return (remout);
 }
 
@@ -200,11 +200,12 @@ int	main(void)
 
 char	*get_next_line(int fd)
 {
-	static char	*ptr = "";
+	static char	*ptr;
 	char		*joined;
 	char		*out;
+	char		*rem;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || !ptr)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return ((char *) 0);
 	joined = joining(fd, ptr);
 	if (!ptr)
@@ -213,7 +214,6 @@ char	*get_next_line(int fd)
 	if (!out)
 		return ((char *) 0);
 	ptr = remaining(joined);
-	free(joined);
 	return (out);
 }
 
